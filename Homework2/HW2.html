@@ -14612,7 +14612,8 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">forward_contract</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> <span class="n">daily_interest_rate</span><span class="p">,</span> <span class="n">spot_price_increase</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">forward_contract</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> <span class="n">daily_interest_rate</span><span class="p">,</span> 
+                     <span class="n">spot_price_increase</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">):</span>
     <span class="n">forward_price</span> <span class="o">=</span> <span class="n">initial_spot_price</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">daily_interest_rate</span><span class="p">)</span> <span class="o">**</span> <span class="n">num_periods</span><span class="p">)</span>
     <span class="n">long_cash_flows</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">short_cash_flows</span> <span class="o">=</span> <span class="p">[]</span>
@@ -14624,8 +14625,8 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
         <span class="n">long_payoff</span> <span class="o">=</span> <span class="n">spot_price</span> <span class="o">-</span> <span class="n">forward_price</span>
         <span class="n">short_payoff</span> <span class="o">=</span> <span class="n">forward_price</span> <span class="o">-</span> <span class="n">spot_price</span>
 
-        <span class="n">long_cash_flow</span> <span class="o">=</span> <span class="n">long_payoff</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">daily_interest_rate</span><span class="p">)</span> <span class="o">**</span> <span class="n">day</span>
-        <span class="n">short_cash_flow</span> <span class="o">=</span> <span class="n">short_payoff</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">daily_interest_rate</span><span class="p">)</span> <span class="o">**</span> <span class="n">day</span>
+        <span class="n">long_cash_flow</span> <span class="o">=</span> <span class="n">long_payoff</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">daily_interest_rate</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">num_periods</span> <span class="o">-</span> <span class="n">day</span><span class="p">)</span>
+        <span class="n">short_cash_flow</span> <span class="o">=</span> <span class="n">short_payoff</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">daily_interest_rate</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">num_periods</span> <span class="o">-</span> <span class="n">day</span><span class="p">)</span>
 
         <span class="n">long_cash_flows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">long_cash_flow</span><span class="p">)</span>
         <span class="n">short_cash_flows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">short_cash_flow</span><span class="p">)</span>
@@ -14662,7 +14663,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">spot_price_increase</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">num_periods</span> <span class="o">=</span> <span class="mi">3</span>
 
-<span class="n">long_cash_flows</span><span class="p">,</span> <span class="n">short_cash_flows</span><span class="p">,</span> <span class="n">spot_prices</span><span class="p">,</span> <span class="n">forward_price</span> <span class="o">=</span> <span class="n">forward_contract</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> <span class="n">daily_interest_rate</span><span class="p">,</span> <span class="n">spot_price_increase</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">)</span>
+<span class="n">long_cash_flows</span><span class="p">,</span> <span class="n">short_cash_flows</span><span class="p">,</span> <span class="n">spot_prices</span><span class="p">,</span> <span class="n">forward_price</span> <span class="o">=</span> <span class="n">forward_contract</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> 
+                                                                                 <span class="n">daily_interest_rate</span><span class="p">,</span> 
+                                                                                 <span class="n">spot_price_increase</span><span class="p">,</span> 
+                                                                                 <span class="n">num_periods</span><span class="p">)</span>
 
 <span class="n">forwards_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 <span class="n">forwards_df</span><span class="p">[</span><span class="s1">'Spot Prices'</span><span class="p">]</span> <span class="o">=</span> <span class="n">spot_prices</span>
@@ -14732,20 +14736,20 @@ Final Profit
     <tr>
       <th>0</th>
       <td>100.0</td>
-      <td>-3.060401</td>
-      <td>3.060401</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>100.0</td>
       <td>-3.091005</td>
       <td>3.091005</td>
     </tr>
     <tr>
+      <th>1</th>
+      <td>100.0</td>
+      <td>-3.060401</td>
+      <td>3.060401</td>
+    </tr>
+    <tr>
       <th>2</th>
       <td>100.0</td>
-      <td>-3.121915</td>
-      <td>3.121915</td>
+      <td>-3.030100</td>
+      <td>3.030100</td>
     </tr>
   </tbody>
 </table>
@@ -14814,20 +14818,20 @@ Final Profit
     <tr>
       <th>0</th>
       <td>100.0</td>
-      <td>-3.060401</td>
-      <td>3.060401</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>100.0</td>
       <td>-3.091005</td>
       <td>3.091005</td>
     </tr>
     <tr>
+      <th>1</th>
+      <td>100.0</td>
+      <td>-3.060401</td>
+      <td>3.060401</td>
+    </tr>
+    <tr>
       <th>2</th>
       <td>100.0</td>
-      <td>-3.121915</td>
-      <td>3.121915</td>
+      <td>-3.030100</td>
+      <td>3.030100</td>
     </tr>
   </tbody>
 </table>
@@ -14902,7 +14906,10 @@ This means, that to have this forward replication via futures, the spot price at
 <span class="n">spot_price_increase</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">num_periods</span> <span class="o">=</span> <span class="mi">100</span>
 
-<span class="n">long_cash_flows</span><span class="p">,</span> <span class="n">short_cash_flows</span><span class="p">,</span> <span class="n">spot_prices</span><span class="p">,</span> <span class="n">forward_price</span> <span class="o">=</span> <span class="n">forward_contract</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> <span class="n">daily_interest_rate</span><span class="p">,</span> <span class="n">spot_price_increase</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">)</span>
+<span class="n">long_cash_flows</span><span class="p">,</span> <span class="n">short_cash_flows</span><span class="p">,</span> <span class="n">spot_prices</span><span class="p">,</span> <span class="n">forward_price</span> <span class="o">=</span> <span class="n">forward_contract</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> 
+                                                                                 <span class="n">daily_interest_rate</span><span class="p">,</span> 
+                                                                                 <span class="n">spot_price_increase</span><span class="p">,</span> 
+                                                                                 <span class="n">num_periods</span><span class="p">)</span>
 
 <span class="n">forwards_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 <span class="n">forwards_df</span><span class="p">[</span><span class="s1">'Spot Prices'</span><span class="p">]</span> <span class="o">=</span> <span class="n">spot_prices</span>
@@ -14972,32 +14979,32 @@ Final Profit:
     <tr>
       <th>0</th>
       <td>101.0</td>
-      <td>-9.521081</td>
-      <td>9.521081</td>
+      <td>-10.500884</td>
+      <td>10.500884</td>
     </tr>
     <tr>
       <th>1</th>
       <td>102.0</td>
-      <td>-8.528601</td>
-      <td>8.528601</td>
+      <td>-9.387485</td>
+      <td>9.387485</td>
     </tr>
     <tr>
       <th>2</th>
       <td>103.0</td>
-      <td>-7.534127</td>
-      <td>7.534127</td>
+      <td>-8.276300</td>
+      <td>8.276300</td>
     </tr>
     <tr>
       <th>3</th>
       <td>104.0</td>
-      <td>-6.537655</td>
-      <td>6.537655</td>
+      <td>-7.167326</td>
+      <td>7.167326</td>
     </tr>
     <tr>
       <th>4</th>
       <td>105.0</td>
-      <td>-5.539183</td>
-      <td>5.539183</td>
+      <td>-6.060559</td>
+      <td>6.060559</td>
     </tr>
   </tbody>
 </table>
@@ -15066,32 +15073,32 @@ Final Profit:
     <tr>
       <th>95</th>
       <td>196.0</td>
-      <td>94.097651</td>
-      <td>-94.097651</td>
+      <td>85.830897</td>
+      <td>-85.830897</td>
     </tr>
     <tr>
       <th>96</th>
       <td>197.0</td>
-      <td>95.293555</td>
-      <td>-95.293555</td>
+      <td>86.748155</td>
+      <td>-86.748155</td>
     </tr>
     <tr>
       <th>97</th>
       <td>198.0</td>
-      <td>96.491758</td>
-      <td>-96.491758</td>
+      <td>87.663495</td>
+      <td>-87.663495</td>
     </tr>
     <tr>
       <th>98</th>
       <td>199.0</td>
-      <td>97.692261</td>
-      <td>-97.692261</td>
+      <td>88.576919</td>
+      <td>-88.576919</td>
     </tr>
     <tr>
       <th>99</th>
       <td>200.0</td>
-      <td>98.895069</td>
-      <td>-98.895069</td>
+      <td>89.488430</td>
+      <td>-89.488430</td>
     </tr>
   </tbody>
 </table>
@@ -15125,11 +15132,15 @@ Final Profit:
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This function is just a modification of the forwards function from problem 1</span>
 
-<span class="k">def</span> <span class="nf">forward_contract_special</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> <span class="n">odd_periods_interest_rate</span><span class="p">,</span> <span class="n">even_periods_interest_rate</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">forward_contract_special</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> 
+                             <span class="n">odd_periods_interest_rate</span><span class="p">,</span> 
+                             <span class="n">even_periods_interest_rate</span><span class="p">,</span> 
+                             <span class="n">num_periods</span><span class="p">):</span>
     <span class="n">temp_spot_price</span> <span class="o">=</span> <span class="mi">100</span>
     <span class="n">long_cash_flows</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">short_cash_flows</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">spot_prices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">forward_prices</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_periods</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">day</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -15145,6 +15156,7 @@ Final Profit:
             <span class="n">spot_prices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_spot_price</span><span class="p">)</span>
         
         <span class="n">forward_price</span> <span class="o">=</span> <span class="n">initial_spot_price</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">interest_rate</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">num_periods</span> <span class="o">-</span> <span class="n">day</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="n">forward_prices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">forward_price</span><span class="p">)</span>
 
         <span class="n">long_payoff</span> <span class="o">=</span> <span class="n">temp_spot_price</span> <span class="o">-</span> <span class="n">forward_price</span>
         <span class="n">short_payoff</span> <span class="o">=</span> <span class="n">forward_price</span> <span class="o">-</span> <span class="n">temp_spot_price</span>
@@ -15155,7 +15167,7 @@ Final Profit:
         <span class="n">long_cash_flows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">long_cash_flow</span><span class="p">)</span>
         <span class="n">short_cash_flows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">short_cash_flow</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">long_cash_flows</span><span class="p">,</span> <span class="n">short_cash_flows</span><span class="p">,</span> <span class="n">spot_prices</span>
+    <span class="k">return</span> <span class="n">long_cash_flows</span><span class="p">,</span> <span class="n">short_cash_flows</span><span class="p">,</span> <span class="n">spot_prices</span><span class="p">,</span> <span class="n">forward_prices</span>
 </pre></div>
 
      </div>
@@ -15176,13 +15188,16 @@ Final Profit:
 <span class="n">even_periods_interest_rate</span> <span class="o">=</span> <span class="mf">0.00</span>
 <span class="n">num_periods</span> <span class="o">=</span> <span class="mi">100</span>
 
-<span class="n">long_cash_flows</span><span class="p">,</span> <span class="n">short_cash_flows</span><span class="p">,</span> <span class="n">spot_prices</span> <span class="o">=</span> <span class="n">forward_contract_special</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> <span class="n">odd_periods_interest_rate</span><span class="p">,</span> <span class="n">even_periods_interest_rate</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">)</span>
+<span class="n">long_cash_flows</span><span class="p">,</span> <span class="n">short_cash_flows</span><span class="p">,</span> <span class="n">spot_prices</span><span class="p">,</span> <span class="n">forward_prices</span> <span class="o">=</span> <span class="n">forward_contract_special</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> 
+                                                                                          <span class="n">odd_periods_interest_rate</span><span class="p">,</span> 
+                                                                                          <span class="n">even_periods_interest_rate</span><span class="p">,</span> 
+                                                                                          <span class="n">num_periods</span><span class="p">)</span>
 
 <span class="n">final_payout_long</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">long_cash_flows</span><span class="p">)</span>
 <span class="n">final_payout_short</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">short_cash_flows</span><span class="p">)</span>
-<span class="n">final_payout</span> <span class="o">=</span> <span class="n">final_payout_long</span> <span class="o">-</span> <span class="n">final_payout_short</span>
+<span class="c1">#print(forward_prices)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Final Payout of the Strategy:"</span><span class="p">,</span> <span class="n">final_payout</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Final Payout of the Strategy:"</span><span class="p">,</span> <span class="p">(</span><span class="n">forward_prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">initial_spot_price</span><span class="p">))</span>
 
 
 <span class="n">forwards_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
@@ -15209,7 +15224,7 @@ Final Profit:
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Final Payout of the Strategy: -152.18189751582094
+<pre>Final Payout of the Strategy: 5.019463779694846
 </pre>
 </div>
 </div>
@@ -15346,13 +15361,16 @@ Final Profit:
 <span class="n">even_periods_interest_rate</span> <span class="o">=</span> <span class="mf">0.001</span>
 <span class="n">num_periods</span> <span class="o">=</span> <span class="mi">100</span>
 
-<span class="n">long_cash_flows</span><span class="p">,</span> <span class="n">short_cash_flows</span><span class="p">,</span> <span class="n">spot_prices</span> <span class="o">=</span> <span class="n">forward_contract_special</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> <span class="n">odd_periods_interest_rate</span><span class="p">,</span> <span class="n">even_periods_interest_rate</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">)</span>
+<span class="n">long_cash_flows</span><span class="p">,</span> <span class="n">short_cash_flows</span><span class="p">,</span> <span class="n">spot_prices</span><span class="p">,</span> <span class="n">forward_prices</span> <span class="o">=</span> <span class="n">forward_contract_special</span><span class="p">(</span><span class="n">initial_spot_price</span><span class="p">,</span> 
+                                                                                          <span class="n">odd_periods_interest_rate</span><span class="p">,</span> 
+                                                                                          <span class="n">even_periods_interest_rate</span><span class="p">,</span> 
+                                                                                          <span class="n">num_periods</span><span class="p">)</span>
 
 <span class="n">final_payout_long</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">long_cash_flows</span><span class="p">)</span>
 <span class="n">final_payout_short</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">short_cash_flows</span><span class="p">)</span>
 <span class="n">final_payout</span> <span class="o">=</span> <span class="n">final_payout_long</span> <span class="o">-</span> <span class="n">final_payout_short</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Final Payout of the Strategy:"</span><span class="p">,</span> <span class="n">final_payout</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Final Payout of the Strategy:"</span><span class="p">,</span> <span class="p">(</span><span class="n">forward_prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">initial_spot_price</span><span class="p">))</span>
 
 
 <span class="n">forwards_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
@@ -15379,7 +15397,7 @@ Final Profit:
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Final Payout of the Strategy: -157.60747694647682
+<pre>Final Payout of the Strategy: 0.0
 </pre>
 </div>
 </div>
@@ -15510,7 +15528,7 @@ Final Profit:
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>The answers to parts a. and b. of question 2 are vastly different, and this makes sense due to the compounding nature of interest. In question 2a, we are applying the interest rate to the odd periods, when the interest rate is positive. This results in interest gains, so the payout will be higher. In 2b. the payout is lower, because we have a 0% interest rate when the price goes up, but an interest loss when the price goes down.</p>
+<p>The answers to parts a. and b. of question 2 are different, and this makes sense due to the compounding nature of interest. In question 2a, we are applying the interest rate to the odd periods, when the interest rate is positive. This results in interest gains, so the payout will be higher. In 2b. the payout is lower, because we have a 0% interest rate when the price goes up, but an interest loss when the price goes down.</p>
 <p>You can't implement this strategy without knowing the future interest rates, or at least you won't be able to optimize it. Predicted future rates might differ from the spot rates when those time periods are reached, so your payoff could vary.</p>
 
 </div>
